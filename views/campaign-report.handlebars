@@ -1,0 +1,36 @@
+<script src="../js/campaign-report.js"></script>
+
+<div class="m-3">
+	<a href="/campaign/{{campaignId}}"><i class="fas fa-arrow-left"></i> Back to campaign</a>
+	<br>
+	<br>
+	{{#if campaignReport}}
+	<h5>Your report for <span class="text-danger">{{campaignReport.reportCampaign.campaignName}}</span>, has been accepted for processing.</h5>
+	{{else}}
+	<h5>What's wrong with <span class="text-danger">{{campaignData.campaignName}}</span>?</h5>
+	<hr>
+	<div style="font-size: 15px;">
+		<h5 style="font-size: 15px;">Reason for report</h5>
+		<div class="dropdown">
+			<button class="btn btn-outline-dark btn-sm btn-block" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<div class="d-flex justify-content-between align-items-center">
+					<span id="reason-edit">Select a reason</span>
+					<i class="fas fa-caret-down"></i>
+				</div>
+			</button>
+
+			<div class="dropdown-menu p-0" aria-labelledby="dropdownMenuLink">
+				{{#each reportReasons}}
+				<a onclick={{#genFunc "onReasonSelect" @index}}{{/genFunc}} class="dropdown-item pl-3 pr-3" style="font-size: 13px;">{{this}} <i id={{#genId "reasonCheck" @index}}{{/genId}} class="fas fa-check text-success hidden"></i></a>
+				<input id={{#genId "reasonSelect" @index}}{{/genId}} class="hidden" type="text" value="{{this}}">
+				{{/each}}
+			</div>
+		</div>
+
+		<h5 class="mt-3" style="font-size: 15px;">Additional Remarks</h5>
+		<textarea id="remarks-edit" class="form-control p-2 mb-2" rows="3" style="font-size: 12px;" placeholder="Please elaborate further to help us understand your issue with this campaign."></textarea>
+	</div>
+	<hr>
+	<button id="btn-share" type="button" class="btn btn-danger" onclick={{#genFunc2 "reportCampaign" campaignData._id user}}{{/genFunc2}}>Report</button>
+	{{/if}}
+</div>

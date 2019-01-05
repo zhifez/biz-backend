@@ -1,0 +1,21 @@
+<script src="../js/userAuth.js"></script>
+<div class="splash bg-warning">
+	<div class="centered text-center" style="width: 75%;">
+		<img class="m-0" src="../img/logo.svg" style="width: 100%;">
+		<p class="mb-5 text-secondary" style="font-style: italic; font-size: 20px;">share and earn rewards</p>
+
+		<h1 class="h5 mb-3 font-weight-normal">Create Account</h1>
+		<form id="form-signup">
+			<input type="text" id="inputAddress" name="userAddress" class="form-control hidden" value="{{userAddress}}" required="" autofocus="">
+			<input type="username" id="inputUsername" name="userName" class="form-control" placeholder="Username" required="" autofocus="">
+			<input type="text" id="inputTitle" name="userTitle" class="form-control" placeholder="Profile Title (Optional)" autofocus="">
+			<input type="email" id="inputEmail" name="userEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+			<span style="font-size: 12px;"><input type="checkbox" name="userAgreement"> I agree to the <a class="text-primary" onclick="openLink('https://bizinfluence.app/pages/Terms%20of%20use.html')">Terms of Use</a></span>
+			
+			<p id="auth-alert" class="text-danger m-0 mt-1 hidden" style="font-size: 12px; white-space: pre-wrap;">Signup failed.</p>
+			<button class="btn btn-primary btn-block mt-2" type="submit">Sign up</button>
+		</form>
+		{{!-- <button class="btn btn-primary btn-block mt-2" onclick="onWalletSignup()">Sign up</button> --}}
+		<footer class="mt-5 text-light text-center">©Thunderlab 2017-2018</footer>
+	</div>
+</div>

@@ -1,0 +1,18 @@
+<script src="../js/imageUpload.js"></script>
+
+<h5 style="font-size: 15px;">Upload Image</h5>
+<button class="btn btn-primary" onclick="onUploadImage()">Upload</button>
+<form enctype="multipart/form-data">
+	<div class="form-group">
+		<div class="input-group mb-2">
+			<span class="input-group-btn">
+				<span class="btn btn-primary btn-sm btn-file">
+					Browse <input type="file" id="imgInp">
+				</span>
+			</span>
+			<input id="image-upload-edit" type="text" class="form-control ml-1" style="height: 100%; font-size: 14px;" readonly>
+		</div>
+		<p id="image-upload-edit-verify" class="text-danger hidden" style="font-size: 12px;">A promotional image is required!</p>
+		<img class="mb-1 hidden" id='img-upload'/>
+	</div>
+</form>

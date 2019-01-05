@@ -1,0 +1,85 @@
+<script src="../js/modal.js"></script>
+<div id="modal-main" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 id="modal-main-title" class="modal-title d-flex align-items-center">Modal title</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div id="modal-main-body" class="modal-body" style="font-size: 16px; white-space: pre-wrap;">
+				Model context.
+			</div>
+			<div class="modal-footer">
+				<button id="modal-main-btnClose" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button id="modal-main-btnConfirm" type="button" class="btn btn-danger">Delete</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="modal-message-create" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 id="modal-main-title" class="modal-title d-flex align-items-center">Create Message</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div id="modal-main-body" class="modal-body" style="font-size: 16px;">
+				<div class="row">
+					<div class="form-group col-md-6">
+						<label>From</label>
+						<input id="message-create-from" class="form-control mb-2" type="text" placeholder="From" value="admin">
+					</div>
+					<div class="form-group col-md-6">
+						<label>To</label>
+						<input id="message-create-to" class="form-control mb-2" type="text" placeholder="To" value="admin">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label>Title</label>
+					<input id="message-create-title" class="form-control mb-2" type="text" placeholder="Title">
+				</div>
+				<div class="form-group">
+					<label>Content</label>
+					<textarea id="message-create-content" class="form-control" rows="4" type="text" placeholder="Content"></textarea>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-success" onclick="onMessageCreate()">Create</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="modal-campaign-tier" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title d-flex align-items-center">Choose a tier</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body" style="font-size: 16px;">
+				{{#each pricingTiers}}
+				<button id={{#genId "tier" @index}}{{/genId}} class="btn btn-outline-dark btn-block text-left" style="font-size: 12px" onclick={{#genFunc2 "onChooseTier" @index reward}}{{/genFunc2}}>
+					<h5 style="font-size: 15px" class="mb-1">{{tier}} - {{reward}} TRVC</h5>
+					<p class="m-0"><strong>{{influence}} Influences</strong></p>
+					<p class="m-0"><strong>{{targetPerInfluence}} Views Per Share</strong></p>
+					<p class="m-0"><strong>{{duration}} Days</strong></p>
+					<input id={{#genId "tierDuration" @index}}{{/genId}} class="hidden" value="{{duration}}">
+				</button>
+				{{/each}}
+			</div>
+			{{!-- <div class="modal-footer">
+				<button id="modal-tier-btnClose" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div> --}}
+		</div>
+	</div>
+</div>

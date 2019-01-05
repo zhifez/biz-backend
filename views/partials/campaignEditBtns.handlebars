@@ -1,0 +1,5 @@
+<button id="campaign-edit-btn" class="btn btn-primary btn-block mb-2" onclick="onEditCampaign()"><i class="fas fa-edit"></i> Edit</button>
+<button id="campaign-statistics-btn" class="btn btn-primary btn-block mb-2" onclick="goto('/statistics/{{campaignData._id}}')"><i class="fas fa-chart-bar"></i> Statistics</button>
+<button id="campaign-share-btn" class="btn btn-primary btn-block mb-2" onclick="goto('/share/{{campaignData._id}}')"><i class="fas fa-share-alt"></i> Share</button>
+<button id="campaign-delete-btn" class="btn btn-danger btn-block mb-2" onclick={{#genFunc "onDeleteCampaign" campaignData._id}}{{/genFunc}}><i class="fas fa-trash"></i> Delete</button>
+<button id="campaign-save-btn" class="btn btn-success btn-block mb-2 hidden" onclick={{#genFunc "onDoneEditCampaign" campaignData._id}}{{/genFunc}}>Save Changes</button>

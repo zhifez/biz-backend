@@ -1,0 +1,30 @@
+<script src="../js/search.js"></script>
+{{!-- - Search input + search button --}}
+<div class="container bg-warning pt-2 pb-2">
+	<div class="input-group">
+		<input id="search-edit" type="text" class="form-control" placeholder="Search in BizInfluence" value={{#ifNotEqual keyword 'undefined'}}{{keyword}}{{/ifNotEqual}}>
+		<div class="input-group-append">
+			<button class="btn btn-primary" onclick="onSearch()"><i class="fas fa-search"></i></button>
+		</div>
+	</div>
+
+	<div class="ml-1 d-flex justify-content-between align-items-center mt-2" style="font-size: 13px;">
+		<span>Category</span>
+		<div class="dropdown btn-block ml-3">
+			<button class="btn btn-outline-dark btn-sm btn-block p-0 pl-2 pr-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<div class="d-flex justify-content-between align-items-center">
+					<span id="category-edit">{{#if categoryName}}{{categoryName}}{{else}}All{{/if}}</span>
+					<i class="fas fa-caret-down"></i>
+					<input id="category-input" class="hidden"  value={{#if category}}{{category}}{{else}}"all"{{/if}}>
+				</div>
+			</button>
+
+			<div class="dropdown-menu p-0" aria-labelledby="dropdownMenuLink">
+				{{#each categories}}
+				<a onclick={{#genFunc "onCategorySelect" _id}}{{/genFunc}} class="dropdown-item pl-3 pr-3" style="font-size: 13px;">{{categoryName}} <i id={{#genId "categoryCheck" _id}}{{/genId}} class="fas fa-check text-success {{#unless categorySelected}}hidden{{/unless}}"></i></a>
+				<input class="hidden" id={{#genId "category" _id}}{{/genId}} value={{categoryName}}>
+				{{/each}}
+			</div>
+		</div>
+	</div>
+</div>

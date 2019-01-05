@@ -1,0 +1,19 @@
+<script src="../js/bookmark.js"></script>
+<div class="container mt-3 mb-5">
+	{{#if campaigns}}
+	<div class="row">
+		{{#each campaigns}}
+		<div id={{#genId "bookmark" _id}}{{/genId}} class="col-sm-8 col-md-6 col-lg-4 mb-3">
+			{{> campaignCard this}}
+		</div>
+		{{/each}}
+	</div>
+	{{else}}
+	<div class="text-center">
+		<p class="ml-3 mr-3 text-muted" style="font-size: 12px;">You have not bookmarked any campaign.</p>
+		<button class="btn btn-success" onclick="goto('/home');">
+			View Available Campaigns
+		</button>
+	</div>
+	{{/if}}
+</div>

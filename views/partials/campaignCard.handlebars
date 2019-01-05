@@ -1,0 +1,52 @@
+<div class="card text-overlay">
+	{{!-- <img class="card-img-top" src="{{campaignImage}}" style="object-fit: cover;"> --}}
+	<img id={{#genId "img" _id}}{{/genId}} class="card-img-top tempImg" style="max-height: 150px; object-fit: cover;">
+	<script>loadThumbnail ( '{{_id}}', '{{campaignImage}}' );</script>
+	
+	<div class="card-body mb-0 mr-3 top-left align-self-center overlay">
+		<h5 class="card-title mb-0" style="font-size: 13px;">
+			{{campaignName}}
+		</h5>
+		<div class="card-text" style="font-size: 11px;">
+			<p class="mb-0">by {{campaignCreatedBy}}</p>
+			<p class="mb-0 text-warning">
+				{{campaignProgress.percentage}}% influenced | {{#setSingularPlural campaignExpiry "day"}}{{/setSingularPlural}} to go
+			</p>
+		</div>
+	
+		<div class="d-flex justify-content-between align-items-end bottom-left" style="z-index: 2; width: 90%; bottom: 35px;">
+			{{#if campaignExpired}}
+			<p class="text-warning m-0 ml-1 mb-2">Campaign Ended</p>
+			{{else}}
+			<button class="btn btn-success btn-sm text-light m-0 ml-1 mb-1" onclick="goto('/campaign/{{_id}}')">Learn More</button>
+			{{/if}}
+			
+			{{#if hasShared}}
+			{{#if socialShared}}
+			<span class="text-right col-6">
+				<span style="font-size: 12px;">Shared on</span><br>
+
+				{{#each socialShared}}
+				{{#if shared}}
+				<span> <img src="img/social/{{type}}.png" width="15" height="15"></span>
+				{{/if}}
+				{{/each}}
+			</span>
+			{{/if}}
+			{{/if}}
+		</div>
+	</div>
+
+	{{#if canRemoveBookmark}}
+	<button type="button" class="close text-white top-right" style="top: 8px; right: 12px; z-index: 2;" aria-label="Close" onclick={{#genFunc2 "removeBookmark" currentUser _id}}{{/genFunc2}}>
+		<span aria-hidden="true">&times;</span>
+	</button>
+	{{/if}}
+	
+	<div class="card-footer bg-warning pt-2 pb-2" style="z-index: 2;">
+		<div class="d-flex justify-content-between align-items-center text-dark">
+			<strong>{{campaignReward}} TRVC</strong>
+			<strong style="font-size: 15px;">{{#setSingularPlural campaignInfluence "Influence"}}{{/setSingularPlural}}</strong>
+		</div>
+	</div>
+</div>

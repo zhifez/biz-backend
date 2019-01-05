@@ -1,0 +1,211 @@
+a:link
+{
+	color: darkgray;
+}
+
+a:visited
+{
+	color: rgb(80, 80, 80);
+}
+
+a:hover
+{
+	color: rgb(80, 80, 80);
+}
+
+a:active
+{
+	color: rgb(80, 80, 80);
+}
+
+.text-overlay 
+{
+    position: relative;
+    /* text-align: center; */
+    color: white;
+}
+
+/* Bottom left text */
+.bottom-left 
+{
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+}
+
+/* Top left text */
+.top-left 
+{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+/* Top right text */
+.top-right 
+{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+/* Bottom right text */
+.bottom-right 
+{
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
+
+/* Centered text */
+.centered 
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.overlay
+{
+	background-color: rgba(0, 0, 0, 0.5);
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 90%;
+	z-index: 1;
+}
+
+.wideTop
+{
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 90%;
+	/* z-index: 1; */
+}
+
+.new-notify
+{
+    background-color: bisque;
+}
+
+.color-trvc
+{
+    background-color: #FCA311;
+}
+
+.hidden
+{
+    display: none;
+}
+
+.splash
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+}
+
+.splash2
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+}
+
+.btn-file 
+{
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-file input[type=file] 
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+/* #img-upload
+{
+    width: 100%;
+} */
+
+.profile-photo
+{
+    position: relative;
+}
+
+.profile-photo-img
+{
+    position: inherit;
+    border-radius: 50%;
+}
+
+.profile-photo-overlay 
+{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /* height: 100%;
+    width: 100%; */
+}
+
+.profile-photo-icon 
+{
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+#overlay 
+{
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0; 
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    z-index: 99999; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+}
+
+.biz-link
+{
+    color: blue; 
+    text-decoration: underline;
+}
+
+.tempImg 
+{
+    width: 100%;
+    min-height: 150px;
+    background: url(../img/loading.gif) 50% no-repeat;
+    /* border: 1px solid black;
+    border-radius: 5px; */
+}

@@ -1,0 +1,56 @@
+<script src="../js/admin-payouts.js"></script>
+
+<div class="m-3">
+	<div class="btn-group mb-3" role="group">
+		<button id="status-incomplete" type="button" class="btn btn-dark" onclick="onStatus('incomplete')">
+			Incomplete <span class="badge badge-primary">{{statusIncomplete}}</span>
+		</button>
+		<button id="status-pending" type="button" class="btn btn-outline-dark" onclick="onStatus('pending')">
+			Pending <span class="badge badge-primary">{{statusPending}}</span>
+		</button>
+		<button id="status-complete" type="button" class="btn btn-outline-dark" onclick="onStatus('complete')">
+			Complete <span class="badge badge-primary">{{statusComplete}}</span>
+		</button>
+	</div>
+	
+	<div class="row">
+		{{#each payouts}}
+		<div class="col-sm-6 col-md-6 col-lg-4 {{payoutStatusClass}}">
+			<div class="card">
+				<div class="card-body">
+					<div class="card-title mb-1"><strong>ID:</strong> {{_id}}</div>
+					<p class="mb-1"><strong>User:</strong> {{payoutUserData.userName}}</p>
+					<p class="mb-1"><strong>ID:</strong> {{payoutUserData._id}}</p>
+					<p class="mb-1"><strong>To Address:</strong> {{payoutUserData.userAddress}}</p>
+					<p class="mb-1"><strong>Amount To Pay (95%):</strong> {{payoutFinal}} TRVC</p>
+					<p class="mb-1"><strong>Total Amount:</strong> {{payoutAmount}} TRVC</p>
+					<p class="mb-1"><strong>Date:</strong> {{#dateOnly payoutDate}}{{/dateOnly}}</p>
+					<p class="m-0"><strong>Status:</strong> 
+						<span 
+						{{#ifEqual payoutStatus 'complete'}}
+						class="text-success"
+						{{/ifEqual}}
+						{{#ifEqual payoutStatus 'pending'}}
+						class="text-info"
+						{{/ifEqual}}
+						{{#ifEqual payoutStatus 'incomplete'}}
+						class="text-info"
+						{{/ifEqual}}
+						{{#ifEqual payoutStatus 'txid-invalid'}}
+						class="text-danger"
+						{{/ifEqual}}
+						>{{payoutStatus}}</span>
+					</p>
+					{{#unless payoutTxid}}
+					<hr>
+					<div class="d-flex justify-content-between align-items-center">
+						<input id="txid-edit" type="text" class="form-control mr-2" style="width: 100%;" placeholder="TXID" value="">
+						<button class="btn btn-primary" onclick={{#genFunc "onUpdatePayout" _id}}{{/genFunc}}>Update</button>
+					</div>
+					{{/unless}}
+				</div>
+			</div>
+		</div>
+		{{/each}}
+	</div>
+</div>

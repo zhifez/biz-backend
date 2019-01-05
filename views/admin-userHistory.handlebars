@@ -1,0 +1,34 @@
+<div class="m-3">
+	<p><strong>User:</strong> {{userData.userName}}</p>
+	<p><strong>ID:</strong> {{userData._id}}</p>
+	<br>
+	<table class="table">
+		 <thead>
+			<tr>
+				<th scope="col">Campaign</th>
+				<th scope="col">TRVC</th>
+				<th scope="col">Date</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each records}}
+			<tr>
+				<th scope="row">{{recordName}}
+					<br>
+					<span style="font-size: 10px;">dividend: {{recordDividend}}</span>
+					<br>
+					<span style="font-size: 10px;">status: {{recordStatus}}</span>
+				</th>
+				<td class="{{recordAmountClass}}">{{recordAmount}}</td>
+				<td>{{recordDate}}</td>
+			</tr>
+			{{/each}}
+
+			<tr>
+				<th scope="row">Total Earning</th>
+				<td class="text-dark">{{totalEarning}}</td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

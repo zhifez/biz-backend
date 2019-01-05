@@ -1,0 +1,186 @@
+{{!-- User can :
+- input name
+- input description
+- upload image
+- input TRVC amount
+- input Influence amount
+- input start/end date
+- set bonuses
+- display fee ( 5 USD ) --}}
+<script src="../js/imageUpload.js"></script>
+<script src="../js/campaign-create.js"></script>
+<input id="creator-edit" type="text" class="hidden" value="{{user}}">
+<div class="container mt-3">
+	{{#if campaignData}}
+	<h3 class="text-success mb-3">Campaign Created Successfully!</h3>
+	<div class="card text-overlay">
+		{{!-- <img class="card-img-top" src="{{campaignData.campaignImage}}" style="object-fit: cover;"> --}}
+		<img id={{#genId "img" campaignData._id}}{{/genId}} class="card-img-top tempImg" style="max-height: 150px; object-fit: cover;">
+		<script>loadThumbnail ( '{{campaignData._id}}', '{{campaignData.campaignImage}}' );</script>
+		
+		<div class="card-body mb-0 mr-3 top-left align-self-center overlay">
+			<h5 class="card-title mb-0" style="font-size: 13px;">
+				{{campaignData.campaignName}}
+			</h5>
+			<div class="card-text" style="font-size: 11px;">
+				<p class="mb-0">by {{campaignData.campaignCreatedBy}}</p>
+				<p class="mb-0 text-warning">0% influenced | {{#setSingularPlural campaignData.campaignExpiry "day"}}{{/setSingularPlural}} to go</p>
+			</div>
+			
+			<div class="d-flex justify-content-between align-items-end bottom-left" style="z-index: 2; width: 90%; bottom: 35px;">
+				<button class="btn btn-success btn-sm text-light m-0 ml-1" onclick="goto('/campaign/{{campaignData._id}}')">Learn More</button>
+			</div>
+		</div>
+		
+		<div class="card-footer bg-warning pt-2 pb-2" style="z-index: 2;">
+			<div class="d-flex justify-content-between align-items-center text-dark">
+				<strong>{{campaignData.campaignReward}} TRVC</strong>
+				<strong style="font-size: 15px;">{{#setSingularPlural campaignData.campaignInfluence "Influence"}}{{/setSingularPlural}}</strong>
+			</div>
+		</div>
+	</div>
+	{{else}}
+	{{!-- <div class="alert alert-danger mb-3" role="alert" style="font-size: 12px;">
+		Campaign creation does not work on iOS devices at the moment.
+	</div> --}}
+	
+	<h3>Create A Campaign</h3>
+	<hr>
+		{{!-- <h5 class="mt-3" style="font-size: 15px;">Upload Campaign Header</h5>
+		<div class="form-group">
+			<div class="input-group mb-2">
+				<span class="input-group-btn">
+					<span class="btn btn-primary btn-sm btn-file">
+						Browse <input type="file" id="imgInp">
+					</span>
+				</span>
+				<input id="image-upload-edit" type="text" class="form-control ml-1" style="height: 100%; font-size: 14px;" readonly>
+			</div>
+			<p id="image-upload-edit-verify" class="text-danger mt-2 mb-2 hidden" style="font-size: 12px;">Promotional image is required!</p>
+			<img class="mb-1 hidden" id='img-upload' style="width: 100%;"/>
+		</div> --}}
+
+		{{!-- HEADER --}}
+		<h5 class="mb-3" style="font-size: 15px;">Upload Header Image</h5>
+		<div class="profile-photo mb-3" style="position: relative;">
+			<img id="img-upload" src="/img/insert_image.png" style="width: 100%; object-fit: cover;">
+			<div id="image-edit-btn" class="profile-photo-overlay">
+				<button class="profile-photo-icon btn-file close" style="font-size: 30px; color: white;">
+					<i class="fas fa-camera"></i> 
+					<input class="hidden" type="file" id="imgInp">
+				</button>
+			</div>
+		</div>
+		<p id="image-upload-edit-verify" class="text-danger mb-3 hidden" style="font-size: 12px;">Header image is required!</p>
+
+		{{!-- DETAILS --}}
+		<h5 style="font-size: 15px;">Title</h5>
+		<input id="name-edit" type="text" class="form-control p-2" style="font-size: 12px;" placeholder="Campaign's title">
+		<p id="name-edit-verify" class="text-danger hidden mt-2 mb-2" style="font-size: 12px;">Title cannot empty!</p>
+
+		<h5 id="content-title" class="mt-3 mb-2" style="font-size: 15px;">Content (text)</h5>
+		<div class="btn-group mb-2" role="group">
+			<button id="btn-text" type="button" onclick="onContentType('text')" class="btn btn-dark p-1 pl-2 pr-2" style="font-size: 15px;">Text</button>
+			<button id="btn-article" type="button" onclick="onContentType('article')" class="btn btn-outline-dark p-1 pl-2 pr-2" style="font-size: 15px;">Article</button>
+		</div>
+		<textarea id="text-edit" class="form-control p-2" rows="3" style="font-size: 12px;" placeholder="What is this campaign about?"></textarea>
+		{{!-- <textarea id="article-edit" class="form-control p-2 hidden" rows="5" style="font-size: 12px;" placeholder="What is this campaign about?"></textarea> --}}
+		{{> campaignContentEdit this}}
+		
+		{{!-- CATEGORY --}}
+		<h5 class="mt-3" style="font-size: 15px;">Category</h5>
+		<div class="dropdown">
+			<button id="category-select" class="btn btn-outline-dark btn-sm btn-block" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<div class="d-flex justify-content-between align-items-center">
+					<span id="category-edit">Select a category</span>
+					<i class="fas fa-caret-down"></i>
+				</div>
+			</button>
+
+			<div class="dropdown-menu p-0" aria-labelledby="dropdownMenuLink">
+				{{#each categories}}
+				<a onclick={{#genFunc "onCategorySelect" _id}}{{/genFunc}} class="dropdown-item pl-3 pr-3">{{categoryName}} <i id={{#genId "categoryCheck" _id}}{{/genId}} class="fas fa-check text-success hidden"></i></a>
+				<input class="hidden" id={{#genId "category" _id}}{{/genId}} value={{categoryName}}>
+				{{/each}}
+			</div>
+		</div>
+		<p id="category-edit-verify" class="text-danger hidden mt-2 mb-2" style="font-size: 12px;">You must select a category!</p>
+		
+		{{!-- TARGET REGION --}}
+		<h5 class="mt-3" style="font-size: 15px;">Target Region</h5>
+		<div class="dropdown">
+			<button id="region-select" class="btn btn-outline-dark btn-sm btn-block" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<div class="d-flex justify-content-between align-items-center">
+					<span id="region-edit">Select a region</span>
+					<i class="fas fa-caret-down"></i>
+				</div>
+			</button>
+
+			<div class="dropdown-menu p-0" aria-labelledby="dropdownMenuLink">
+				{{#each regions}}
+				<a onclick={{#genFunc "onRegionSelect" regionCode}}{{/genFunc}} class="dropdown-item pl-3 pr-3">{{regionName}} <i id={{#genId "regionCheck" regionCode}}{{/genId}} class="fas fa-check text-success hidden"></i></a>
+				<input class="hidden" id={{#genId "region" regionCode}}{{/genId}} value="{{regionName}}">
+				<input class="hidden" id={{#genId "regionSocial" regionCode}}{{/genId}} value="{{#listify socials "<strong>Social share:</strong> "}}{{/listify}}">
+				{{/each}}
+			</div>
+		</div>
+		<p id="region-socials" class="text-info hidden mt-2 mb-2" style="font-size: 12px;"></p>
+		<p id="region-edit-verify" class="text-danger hidden mt-2 mb-2" style="font-size: 12px;">You must select a region!</p>
+
+		{{!-- TIER --}}
+		<h5 class="mt-3" style="font-size: 15px;">Pricing Tier</h5>
+		<div class="dropdown">
+			<button id="tier-select" class="btn btn-outline-dark btn-sm btn-block" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<div class="d-flex justify-content-between align-items-center">
+					<span id="tier-edit">Select a tier</span>
+					{{#each pricingTiers}}
+					<div id={{#genId "tierSelected" @index}}{{/genId}} class="text-left p-1 hidden" style="font-size: 12px">
+						<h5 style="font-size: 15px" class="mb-1">{{tier}} - {{reward}} TRVC</h5>
+						<p class="m-0"><strong>{{influence}} Influences</strong></p>
+						<p class="m-0"><strong>{{targetPerInfluence}} Views Per Share</strong></p>
+						<p class="m-0"><strong>{{duration}} Days</strong></p>
+						<input type="number" id={{#genId "tierDuration" @index}}{{/genId}} class="hidden" value="{{duration}}">
+					</div>
+					{{/each}}
+					<i class="fas fa-caret-down"></i>
+				</div>
+			</button>
+
+			<div class="dropdown-menu p-0" aria-labelledby="dropdownMenuLink">
+				{{#each pricingTiers}}
+				<a onclick={{#genFunc2 "onTierSelect" @index reward}}{{/genFunc2}} class="dropdown-item pl-3 pr-3">{{tier}} - {{reward}} TRVC <i id={{#genId "tierCheck" _id}}{{/genId}} class="fas fa-check text-success hidden"></i></a>
+				{{/each}}
+			</div>
+		</div>
+		<p id="tier-edit-verify" class="text-danger hidden mt-2 mb-2" style="font-size: 12px;">You must select a tier!</p>
+		
+		<p id="date-info" class="mt-2 mb-2 text-info hidden" style="font-size: 15px;">Start Date: XX/XX/XXXX</p>
+		
+		<hr>
+		{{!-- <h5 class="mt-3" style="font-size: 15px;">Upload Promotional Image</h5>
+		<div class="form-group">
+			<div class="input-group mb-2">
+				<span class="input-group-btn">
+					<span class="btn btn-primary btn-sm btn-file">
+						Browse <input type="file" id="imgInp">
+					</span>
+				</span>
+				<input id="image-upload-edit" type="text" class="form-control ml-1" style="height: 100%; font-size: 14px;" readonly>
+			</div>
+			<p id="image-upload-edit-verify" class="text-danger mt-2 mb-2 hidden" style="font-size: 12px;">Promotional image is required!</p>
+			<img class="mb-1 hidden" id='img-upload' style="width: 100%;"/>
+		</div> --}}
+
+		<div class="alert alert-info" role="alert" style="font-size: 12px;">
+			{{#if promotion}}
+				<strong style="white-space: pre-wrap;">{{promotion}}</strong>
+				<br>
+			{{/if}}
+			A processing fee of {{processingFee}} USD ({{#decimizeBy processingFeeTRVC 3}}{{/decimizeBy}} TRVC) will be charged per campaign creation.
+		</div>
+		<div class="text-center mb-3" style="font-size: 14px;">
+			<input id="userAgreement" type="checkbox" name="userAgreement"> I agree to the <a class="text-primary" onclick="openLink('https://bizinfluence.app/pages/terms-of-use.html')">Terms of Use</a> and <a class="text-primary" onclick="openLink('https://bizinfluence.app/pages/advertising-policy.html')">Advertising Policy</a>
+		</div>
+		<button class="btn btn-success text-light btn-block" onclick={{#genFunc "onCreateCampaign" processingFeeTRVC}}{{/genFunc}}>Create Campaign</button>
+	{{/if}}
+</div>

@@ -1,0 +1,84 @@
+<div id="article-edit" class="mb-3 hidden">
+	<div id="article-editor">
+		{{#if campaignData.campaignContent}}
+			{{{campaignData.campaignContent}}}
+		{{else}}
+			<p><br></p>
+			<p><br></p>
+			<p><br></p>
+		{{/if}}
+	</div>
+	<script>
+		var addedImages = [];
+		var toolbarOptions = 
+		[
+			//[ { 'size': [ 'small', false, 'large', 'huge' ] } ],  // custom dropdown
+			[ { 'header': [ 1, 2, 3, 4, 5, 6, false ] } ],
+			[ 'bold', 'italic', 'underline', 'strike' ],
+			[ 'link', 'image' ]
+		];
+		var quillEditor = new Quill ( '#article-editor', 
+		{ 
+			theme: 'snow',
+			modules: 
+			{
+				toolbar: toolbarOptions
+			},
+			placeholder: 'Insert content here...'
+		} );
+		quillEditor.getModule ( 'toolbar' ).addHandler ( 'image', selectLocalImage );
+
+		function selectLocalImage () 
+		{
+			const input = document.createElement ( 'input' );
+			input.setAttribute ( 'type', 'file' );
+			input.click ();
+
+			// Listen upload local image and save to server
+			input.onchange = () => 
+			{
+				const file = input.files[0];
+
+				// file type is only image.
+				if ( /^image\//.test ( file.type ) ) 
+					uploadToServer ( file );
+				else
+					console.warn ( 'You could only upload images.' );
+			};
+		}
+
+		function uploadToServer ( image )
+		{
+			uploadSingleImage ( image, 1024, 100, function ( filename )
+			{
+				console.log ( filename );
+				createImageData ( filename, function ( data )
+				{
+					console.log ( getHostname () + filename );
+					var url = getHostname () + filename;
+					insertToEditor ( url );
+					addedImages.push ( data._id );
+				} );
+			} );
+		}
+
+		function insertToEditor ( url ) 
+		{
+			// push image url to rich editor.
+			const range = quillEditor.getSelection ();
+			quillEditor.insertEmbed ( range.index, 'image', url );
+
+			// format img tag
+			formatImgTags ();
+		}
+
+		function formatImgTags ()
+		{
+			var imgs = $( '#article-editor' ).find ( 'img' );
+			$.each ( imgs, function ( index, element )
+			{
+				element.setAttribute ( 'style', 'width: 100%; object-fit: cover;' );
+			} );
+		}
+	</script>
+</div>

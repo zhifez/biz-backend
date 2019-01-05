@@ -1,0 +1,43 @@
+<div class="text-center ml-2 mr-2 mt-3">
+	<div class="m-2 btn-group d-flex">
+		<button class="btn btn-sm btn-block btn-outline-warning m-0" onclick="goto('/user')">Profile</button>
+		<button class="btn btn-sm btn-block btn-warning m-0">Campaign</button>
+		{{!-- <button class="btn btn-sm btn-block btn-outline-warning m-0" onclick="goto('/user/following')">Following</button> --}}
+	</div>
+</div>
+
+<div class="container mt-3 mb-5">
+	<button class="btn btn-success btn-block mb-3" onclick="goto('/campaign/create')">Create New Campaign</button>
+	
+	<div class="row">
+		{{#each campaigns}}
+		<div class="col-sm-8 col-md-6 col-lg-4 mb-3">
+		{{> campaignCard this}}
+		</div>
+		{{!-- <div class="card text-overlay mb-3">
+			<img class="card-img-top" src="{{campaignImage}}" style="max-height: 150px; object-fit: cover;">
+			
+			<div class="card-body mb-0 mr-3 top-left align-self-center overlay">
+				<h5 class="card-title mb-0" style="font-size: 13px;">
+					{{campaignName}}
+				</h5>
+				<div class="card-text mt-1" style="font-size: 11px;">
+					<p class="mb-0">by {{campaignCreatedBy}}</p>
+					<p class="mb-0 text-warning">{{campaignProgress.percentage}}% influenced | {{#setSingularPlural campaignExpiry "day"}}{{/setSingularPlural}} to go</p>
+				</div>
+				
+				<div class="d-flex justify-content-between align-items-end bottom-left" style="z-index: 2; width: 90%; bottom: 35px;">
+					<button class="btn btn-success btn-sm text-light m-0 ml-1" onclick="goto('/campaign/{{_id}}')">Learn More</button>
+				</div>
+			</div>
+			
+			<div class="card-footer bg-warning pt-2 pb-2" style="z-index: 2;">
+				<div class="d-flex justify-content-between align-items-center text-dark">
+					<strong>{{campaignReward}} TRVC</strong>
+					<strong style="font-size: 15px;">{{#setSingularPlural campaignInfluence "Influence"}}{{/setSingularPlural}}</strong>
+				</div>
+			</div>
+		</div> --}}
+		{{/each}}
+	</div>
+</div>

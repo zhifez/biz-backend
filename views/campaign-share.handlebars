@@ -1,0 +1,21 @@
+<script src="../js/campaign-share.js"></script>
+
+<div class="m-3">
+	<a href="/campaign/{{campaignData._id}}"><i class="fas fa-arrow-left"></i> Back to campaign</a>
+	<br>
+	<br>
+	<h5 class="d-flex align-items-center"><i class="fas fa-share-alt"></i><span class="ml-2">Select a sharing channel</span></h5>
+	<hr>
+	<span style="font-size: 15px;">
+		<input id="share-id" type="text" class="hidden" value="{{campaignData._id}}">
+		<input id="share-title" type="text" class="hidden" value="{{campaignData.campaignName}}">
+		{{#each socials}}
+		<button class="btn btn-light btn-sm btn-block d-flex justify-content-between align-items-center mb-2" 
+		style="border: 1px solid black" 
+		onclick={{#genFunc "share" this}}{{/genFunc}}>
+			<img src="/img/social/{{this}}.png" width="20" height="20">
+			<span style="width: 100%" class="text-center">Share on {{#formatSocialHeader this}}{{/formatSocialHeader}}</span>
+		</button>
+		{{/each}}
+	</span>
+</div>

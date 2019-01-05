@@ -1,0 +1,100 @@
+<script src="../js/imageUpload.js"></script>
+<script src="../js/userProfile.js"></script>
+<div class="text-center ml-2 mr-2 mt-3">
+	<div class="m-2 btn-group d-flex">
+		<button class="btn btn-sm btn-block btn-warning m-0">Profile</button>
+		<button class="btn btn-sm btn-block btn-outline-warning m-0" onclick="goto('/user/campaign')">Campaign</button>
+		{{!-- <button class="btn btn-sm btn-block btn-outline-warning m-0" onclick="goto('/user/following')">Following</button> --}}
+	</div>
+</div>
+
+<div class="container mt-3 mb-5">
+	<div class="text-center">
+		{{!-- PROFILE PHOTO --}}
+		<div class="profile-photo mt-1 mb-3">
+			<img id="img-upload" class="profile-photo-img" src="{{#if user.userImage}}{{user.userImage}}{{else}}../img/default_profile.png{{/if}}" alt="Avatar" width="100" height="100" style="object-fit: cover;">
+			{{#if user.userImage}}<span id="img-default" class="hidden">{{user.userImage}}</span>{{/if}}
+			<div id="profile-image-edit-btn" class="profile-photo-overlay hidden">
+				<button class="profile-photo-icon btn-file close" style="font-size: 30px; color: white;">
+					<i class="fas fa-camera"></i> 
+					<input class="hidden" type="file" id="imgInp">
+				</button>
+			</div>
+			{{!-- <button id="profile-photo-edit-btn" class="btn btn-primary btn-sm centered" type="button"><i class="fas fa-camera"></i></button> --}}
+		</div>
+		
+		<div class="ml-3 mr-3">
+			<div id="profile">
+				{{!-- NAME --}}
+				<h5 id="profile-title" class="mb-1" style="font-size: 18px;">{{user.userTitle}}</h5>
+				<h5 class="mt-0 text-muted" style="font-size: 12px;">@{{user.userName}}</h5>
+
+				{{!-- DESCRIPTION --}}
+				<p id="profile-about" style="font-size: 12px; white-space: pre-wrap;">{{#if user.userAbout}}{{#formatDesc user.userAbout}}{{/formatDesc}}{{else}}No description available.{{/if}}</p>
+			</div>
+
+			<div id="profile-edit" class="hidden">
+				<h5 class="mt-0 text-muted" style="font-size: 12px;">@{{user.userName}}</h5>
+				
+				<div class="mb-2">
+					<input id="profile-title-edit" type="text" class="form-control pt-1 pb-1 m-0" placeholder="Title" style="font-size: 12px;" value="{{user.userTitle}}">
+					<p id="profile-title-alert" class="text-danger m-0 mt-1 hidden" style="font-size: 12px;">Title cannot be empty.</p>
+				</div>
+
+				<textarea id="profile-about-edit" class="form-control pt-1 pb-1 mb-2" rows="2" style="font-size: 12px;" placeholder="About you" value="{{user.userAbout}}">{{user.userAbout}}</textarea>
+				{{!-- <input id="profile-email-edit" type="email" class="form-control pt-1 pb-1 mb-2" placeholder="Email address" style="font-size: 12px;" value={{user.userEmail}}> --}}
+			</div>
+
+			<div class="m-2" style="font-size: 12px;">
+				{{!-- <div class="row mb-3 align-items-center text-left">
+					<strong class="col-3">
+						Address
+					</strong>
+
+					<div class="col-9 text-right">
+						{{#if user.userAddress}}{{user.userAddress}}{{else}}1234567890Abcdefghij{{/if}}
+					</div>
+				</div> --}}
+
+				<div class="row mb-3 align-items-center text-left">
+					<strong class="col-3">
+						Email
+					</strong>
+
+					<div class="col-9 text-right">
+						{{user.userEmail}}
+					</div>
+				</div>
+
+				<div class="row mb-3 align-items-center text-left">
+					<strong class="col-3">
+						BizToken
+					</strong>
+
+					<div class="col-9 text-right">
+						{{#decimize totalToken}}{{/decimize}} BT
+					</div>
+				</div>
+			</div>
+			<button id="profile-edit-btn" class="btn btn-primary btn-sm btn-block" type="button" onclick="onEditProfile()">Edit Profile</button>
+			<div id="profile-edit-done-btn" class="hidden">
+				<button class="btn btn-success btn-sm btn-block" type="button" onclick={{#genFunc "onDoneEditProfile" user._id}}{{/genFunc}}>Save Changes</button>
+				<button class="btn btn-danger btn-sm btn-block" type="button" onclick="onCancelEditProfile()">Cancel</button>
+			</div>
+			<hr>
+			<div id="law-stuff" class="text-left" style="font-size: 13px;">
+				<div class="mb-1">
+					<a onclick="openLink('https://bizinfluence.app/pages/terms-of-use.html')">Terms of Use</a>
+				</div>
+				<div class="mb-1">
+					<a onclick="openLink('https://bizinfluence.app/pages/privacy-policy.html')">Privacy Policy</a>
+				</div>
+				<div class="mb-1">
+					<a onclick="openLink('https://bizinfluence.app/pages/advertising-policy.html')">Advertising Policy</a>
+				</div>
+			</div>
+			{{!-- <hr>
+			<button class="btn btn-danger btn-sm btn-block" onclick="signout()">Logout</button> --}}
+		</div>
+	</div>
+</div>

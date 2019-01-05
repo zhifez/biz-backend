@@ -1,0 +1,37 @@
+<script src="../js/imageUpload.js"></script>
+<script src="../js/admin-advertUpdate.js"></script>
+
+<div class="m-3">
+	<button class="btn btn-primary" onclick="goto('/admin-adverts')">Back</button>
+	<hr>
+	<div class="row">
+		<div class="col-md-5">
+			<div class="form-group">
+				<div class="input-group mb-2">
+					<span class="input-group-btn">
+						<span class="btn btn-primary btn-sm btn-file">
+							Browse <input type="file" id="imgInp">
+						</span>
+					</span>
+					<input id="image-upload-edit" type="text" class="form-control ml-1" style="height: 100%; font-size: 14px;" readonly>
+				</div>
+				<p id="image-upload-edit-verify" class="text-danger mt-2 mb-2 hidden" style="font-size: 12px;">Advertisement image is required!</p>
+				<img id="img-upload" src="{{advertData.advertImage}}" style="width: 100%;"/>
+				<input id="img-default" class="hidden" value="{{advertData.advertImage}}"/>
+			</div> 
+		</div>
+
+		<div class="col-md-7">
+			<p><strong>Advert Name</strong></p>
+			<input id="name-edit" type="text" class="form-control p-2 mb-3" style="font-size: 15px;" value="{{advertData.advertName}}">
+			
+			<p><strong>Advertiser</strong></p>
+			<input id="owner-edit" type="text" class="form-control p-2 mb-3" style="font-size: 15px;" value="{{advertData.advertOwner}}">
+
+			<p><strong>Link To</strong></p>
+			<input id="link-edit" type="text" class="form-control p-2" style="font-size: 15px;" value="{{advertData.advertLink}}">
+		</div>
+	</div>
+	<hr>
+	<button class="btn btn-success" onclick={{#genFunc "onBtnUpdate" advertData._id}}{{/genFunc}}>Update</button>
+</div>

@@ -1,0 +1,55 @@
+<script src="../js/admin-reports.js"></script>
+
+<div class="m-3">
+	<div class="btn-group mb-3" role="group">
+		<button id="status-reported" type="button" class="btn btn-dark" onclick="onStatus('reported')">
+			Reported <span class="badge badge-primary">{{status.reported}}</span>
+		</button>
+		<button id="status-pending" type="button" class="btn btn-outline-dark" onclick="onStatus('pending')">
+			Pending <span class="badge badge-primary">{{status.pending}}</span>
+		</button>
+		<button id="status-amended" type="button" class="btn btn-outline-dark" onclick="onStatus('amended')">
+			Amended <span class="badge badge-primary">{{status.amended}}</span>
+		</button>
+		<button id="status-complete" type="button" class="btn btn-outline-dark" onclick="onStatus('closed')">
+			Closed <span class="badge badge-primary">{{status.closed}}</span>
+		</button>
+	</div>
+	
+	<div class="row">
+		{{#each reports}}
+		<div class="col-sm-6 col-md-6 col-lg-4 {{reportStatus}} hidden">
+			<div class="card">
+				<div class="card-body">
+					<div class="card-title mb-1"><strong>ID:</strong> {{_id}}</div>
+					<p class="mb-1"><strong>Campaign:</strong> {{reportCampaign.campaignName}}</p>
+					<p class="mb-1"><strong>Campaign ID:</strong> {{reportCampaign._id}}</p>
+					<p class="mb-1"><strong>Campaign Creator:</strong> {{reportCampaign.campaignCreatedBy}}</p>
+					<p class="mb-1"><strong>Reported By:</strong> {{reportCreatedBy._id}}</p>
+					<p class="mb-1"><strong>Reason:</strong> {{reportReason}}</p>
+					<p class="mb-1"><strong>Remarks:</strong> {{reportRemarks}}</p>
+					<p class="mb-1"><strong>Date:</strong> {{#dateOnly reportCreated}}{{/dateOnly}}</p>
+					<hr>
+					<button class="btn btn-primary btn-sm btn-block" onclick="goto('/campaign/{{reportCampaign._id}}')">Visit Campaign</button>
+					
+					{{#ifEqualOr reportStatus "reported" "pending"}}
+					<button class="btn btn-danger btn-sm btn-block" onclick={{#genFunc "onSendWarning" _id}}{{/genFunc}}>Warn Creator</button>
+					{{/ifEqualOr}}
+
+					{{#if reportCampaign.campaignSuspended}}
+					<button class="btn btn-info btn-sm btn-block mt-2" onclick={{#genFunc "onCampaignUnsuspend" _id}}{{/genFunc}}>Unsuspend Campaign</button>
+					{{/if}}
+
+					{{#ifNotEqual reportStatus "closed"}}
+					<button class="btn btn-success btn-sm btn-block mt-2" onclick={{#genFunc2 "onReportStatus" _id "closed"}}{{/genFunc2}}>Close Report</button>
+					{{/ifNotEqual}}
+
+					{{#ifEqual reportStatus "closed"}}
+					<button class="btn btn-success btn-sm btn-block mt-2" onclick={{#genFunc2 "onReportStatus" _id "reported"}}{{/genFunc2}}>Reopen</button>
+					{{/ifEqual}}
+				</div>
+			</div>
+		</div>
+		{{/each}}
+	</div>
+</div>

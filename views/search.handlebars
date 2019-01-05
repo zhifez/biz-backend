@@ -1,0 +1,27 @@
+{{> searchHeader this}}
+
+{{!-- - Search results --}}
+<div class="m-3">
+	{{#if keyword}}
+	<h5 class="text-muted text-center" style="font-size: 13px;">
+		{{#setSingularPlural campaigns.length "result"}}{{/setSingularPlural}} found{{#ifNotEqual keyword 'undefined'}} for '{{keyword}}'{{/ifNotEqual}}{{#if categoryName}}, in '{{categoryName}}' category{{/if}}
+	</h5>
+	{{/if}}
+
+	{{#if campaigns}}
+	<hr>
+	<div class="row">
+		{{#each campaigns}}
+		<div class="col-sm-8 col-md-4 col-lg-4 mb-3">
+			{{> campaignCardLarge this}}
+		</div>
+		{{/each}}
+	</div>
+	{{/if}}
+
+	<hr class="mt-0">
+	<div class="text-center">
+		<h5 class="mb-3">Eager to share something<br>with the world?</h5>
+		<button class="btn btn-success" onclick="goto('/campaign/create')">Create a campaign now!</button>
+	</div>
+</div>

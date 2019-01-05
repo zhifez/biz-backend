@@ -1,0 +1,15 @@
+<script src="../js/userAuth.js"></script>
+<div class="splash bg-warning">
+	<div class="centered text-center" style="width: 75%;">
+		<img class="m-0" src="../img/logo.svg" style="width: 100%;">
+		<p class="mb-5 text-secondary" style="font-style: italic; font-size: 20px;">share and earn rewards</p>
+		<input id="current-user" type="text" class="hidden" value={{user}}>
+		<h5 class="mb-3 font-weight-normal" style="font-size: 15px;">Your email appears to be invalid.<br>Please update a new one.</h5>
+		<form id="form-updateEmail">
+			<input id="inputEmail" type="email" name="userEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+			<p id="auth-alert" class="text-danger m-0 mt-1 hidden" style="font-size: 12px; white-space: pre-wrap;"></p>
+			<button class="btn btn-primary btn-block mt-2" type="submit">Update</button>
+		</form>
+		<footer class="mt-5 text-light text-center">©Thunderlab 2017-2018</footer>
+	</div>
+</div>

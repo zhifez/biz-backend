@@ -1,0 +1,43 @@
+<div class="card">
+	<div style="position: relative;">
+		<img id={{#genId "img" _id}}{{/genId}} class="card-img-top tempImg" style="object-fit: cover;">
+		<script>loadThumbnail ( '{{_id}}', '{{campaignImage}}' );</script>
+		{{#ifNotEqual campaignCreatedBy 'You'}}
+			{{#if currentUser}}
+			<div style="position: absolute; top: 0; right: 0;">
+				<button id={{#genId "btnBookmarked" _id}}{{/genId}} class="btn btn-link text-danger text-center {{#unless isBookmarked}}hidden{{/unless}}" onclick={{#genFunc2 "bookmark" currentUser _id}}{{/genFunc2}} style="font-size: 20px;"><i class="fas fa-heart"></i></button>
+				<button id={{#genId "btnBookmark" _id}}{{/genId}} class="btn btn-link text-danger text-center {{#if isBookmarked}}hidden{{/if}}" onclick={{#genFunc2 "bookmark" currentUser _id}}{{/genFunc2}} style="font-size: 20px;"><i class="far fa-heart"></i></button>
+			</div>
+			{{/if}}
+		{{/ifNotEqual}}
+	</div>
+	<div class="card-header bg-warning pt-1 pb-1">
+		<div class="d-flex justify-content-between align-items-center text-dark">
+			<strong>{{campaignReward}} TRVC</strong>
+			<strong style="font-size: 15px;">{{#setSingularPlural campaignInfluence "Influence"}}{{/setSingularPlural}}</strong>
+		</div>
+	</div>
+	<div class="card-body p-3">
+		{{#if campaignCategory}}
+		<p class="m-0 mb-1" style="font-size: 12px;">
+			<a class="text-info" href="/search=undefined&cat={{campaignCategory.categorySlug}}">{{campaignCategory.categoryName}}</a>
+		</p>
+		{{/if}}
+		<h5 class="card-title mb-0" style="font-size: 15px;">
+			{{campaignName}}
+		</h5>
+		<div class="card-text mt-1" style="font-size: 13px;">
+			<p class="mb-3">by {{campaignCreatedBy}}</p>
+			<div class="progress" style="height: 5px;">
+				<div class="progress-bar bg-success" role="progressbar" style="width: {{campaignProgress.percentage}}%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+			</div>
+			<div class="mt-3 mb-3" style="font-size: 13px;">
+				<p class="text-success m-0">{{campaignProgress.total}} shared</p>
+				<p class="text-muted m-0">{{campaignProgress.percentage}}% influenced</p>
+				<p class="text-muted m-0">{{#setSingularPlural campaignExpiry "day"}}{{/setSingularPlural}} to go</p>
+			</div>
+			
+			<button class="btn btn-success btn-sm text-light btn-block" onclick="goto('/campaign/{{_id}}')">Learn More</button>
+		</div>
+	</div>
+</div>

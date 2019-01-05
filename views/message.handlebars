@@ -1,0 +1,25 @@
+<script src="../js/message.js"></script>
+
+<p id="message-empty" class="m-3 text-muted text-center {{#if messages.data}}hidden{{/if}}" style="font-size: 13px;">Your inbox is empty.</p>
+
+{{#ifMoreThan messages.unread 0}}
+<h5 id="message-unread" class="m-0 p-2 bg-primary text-light text-center" style="font-size: 13px;">You have {{#setSingularPlural messages.unread "unread message"}}{{/setSingularPlural}}.</h5>
+{{/ifMoreThan}}
+
+{{#each messages.data}}
+<span id={{#genId "message" _id}}{{/genId}}>
+	<button id={{#genId "messageBtn" _id}}{{/genId}} class="p-3 {{#unless messageViewed}}new-notify{{/unless}}" onclick={{#genFunc "onMessageSelect" _id}}{{/genFunc}} style="width: 100%; border: 0px;">
+		<div class="row">
+			<div class="col-9 text-left">
+				<h5 style="font-size: 13px;" class="m-0">{{messageTitle}}</h5>
+				{{!-- <p style="line-height: 18px; font-size: 12px;" class="m-0">{{#crop messageContent 30}}{{/crop}}</p> --}}
+			</div>
+
+			<div class="col-3 text-right pl-0">
+				<p class="m-0" style="font-size: 10px;">{{#dateOnly messageCreated}}{{/dateOnly}}</p>
+			</div>
+		</div>
+	</button>
+	<hr class="mt-0 mb-0">
+</span>
+{{/each}}

@@ -1,0 +1,91 @@
+<script src="../js/imageUpload.js"></script>
+<script src="../js/admin-adverts.js"></script>
+<div class="m-3">
+	<div class="row">
+		<div class="col-md-3">
+			<div class="list-group">
+				<button type="button" data-toggle="tab" href="#advert_new" class="list-group-item list-group-item-action active">
+					Add New
+				</button>
+				{{#each adverts}}
+				<button type="button" data-toggle="tab" href={{#genId "#advert" _id}}{{/genId}} class="list-group-item list-group-item-action {{#unless advertActive}}bg-info text-light{{/unless}}">
+					{{advertName}}
+				</button>
+				{{/each}}
+			</div>
+		</div>
+
+		<div class="col-md-9">
+			<div class="tab-content">
+				<div id="advert_new" class="tab-pane fade active show">
+					<div class="card">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										<div class="input-group mb-2">
+											<span class="input-group-btn">
+												<span class="btn btn-primary btn-sm btn-file">
+													Browse <input type="file" id="imgInp">
+												</span>
+											</span>
+											<input id="image-upload-edit" type="text" class="form-control ml-1" style="height: 100%; font-size: 14px;" readonly>
+										</div>
+										<p id="image-upload-edit-verify" class="text-danger mt-2 mb-2 hidden" style="font-size: 12px;">Advertisement image is required!</p>
+										<img class="hidden" id='img-upload' style="width: 100%;"/>
+									</div> 
+								</div>
+
+								<div class="col-md-8">
+									<input id="name-edit" type="text" class="form-control p-2 mb-3" style="font-size: 15px;" placeholder="Advert Name">
+									<input id="owner-edit" type="text" class="form-control p-2 mb-3" style="font-size: 15px;" placeholder="Advertiser">
+									<input id="link-edit" type="text" class="form-control p-2" style="font-size: 15px;" placeholder="Link">
+								</div>
+							</div>
+							<hr>
+							<button class="btn btn-success" onclick="onBtnCreate()">Create</button>
+						</div>
+					</div>
+				</div>
+				
+				{{#each adverts}}
+				<div id={{#genId "advert" _id}}{{/genId}} class="tab-pane fade">
+					<div class="card">
+						{{#unless advertActive}}
+						<div class="bg-info text-light p-2">
+							Advert is disabled
+						</div>
+						{{/unless}}
+						<div class="card-body">
+							<div class="row">
+								<div class="col-md-4">
+									<img style="width: 100%" src="{{advertImage}}">
+								</div>
+
+								<div class="col-md-8">
+									<p><strong>Name:</strong> {{advertName}}</p>
+									<p><strong>Owner:</strong> {{advertOwner}}</p>
+									<p><strong>Link:</strong> {{advertLink}}</p>
+								</div>
+							</div>
+							<hr>
+							<div class="d-flex justify-content-between align-items-center">
+								<span>
+									<button class="btn btn-primary" onclick={{#genFunc "onBtnUpdate" _id}}{{/genFunc}}>Update</button>
+									{{#if advertActive}}
+									<button class="btn btn-dark" onclick="onBtnEnable(false, '{{_id}}')">Disable</button>
+									{{else}}
+									<button class="btn btn-primary" onclick="onBtnEnable(true, '{{_id}}')">Enable</button>
+									{{/if}}
+								</span>
+
+								<button class="btn btn-danger" onclick={{#genFunc "onBtnDelete" _id}}{{/genFunc}}>Delete</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				{{/each}}
+			</div>
+		</div>
+	</div>
+</div>
